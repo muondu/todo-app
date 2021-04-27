@@ -1,0 +1,80 @@
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<style>
+
+	body{
+		background-color: #ffa601;
+	}
+
+	input{
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+	}
+
+	input::placeholder {
+	  color: #d3d3d3;
+	}
+
+	.submit{
+		background-color: #6BA3E8;
+	}
+
+	.center-column{
+		width:1000px;
+		margin: 20px auto;
+		padding:20px;
+		background-color: rgb(79, 0, 182);
+		border-radius: 3px;
+		box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+	}
+
+	.item_row{
+		background-color: palegreen;
+		margin: 10px;
+		padding: 20px;
+		border-radius: 3px;
+		color: rgb(10, 2, 2);
+		font-size: 16px;
+		box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+	}
+
+	.btn-danger{
+		background-color: #800000;
+		border-color: #800000;
+	}
+    h1 {text-align: center;}
+    h2 {text-align: center;}
+
+</style>
+<h1>Netoli app</h1>
+
+<div class="center-column">
+<h2>Your Tasks</h2>
+
+    <form method="POST" action="/">
+
+        {% csrf_token %}
+
+        {{form.title}}
+        <input class="btn btn-info" type="submit" value="Add Task">
+
+    </form>
+
+    <div class="todo-list">
+        {% for task in tasks%}
+        <div class="item_row">
+            <a class="btn btn-success" href="{% url 'update_task' task.id %} ">Update</a>
+            <a class="btn btn-sm btn-danger " href="{% url 'delete' task.id %} ">Delete</a>
+
+
+            {% if task.complete == True%}
+            <strike>{{task}}</strike>
+            {% else %}
+            <span>{{task}}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>  
+</div>
